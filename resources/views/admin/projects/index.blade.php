@@ -100,7 +100,7 @@
                 </tfoot>
             </table>
         </div>
-        <div class="d-flex justify-content-center p-4">
+        <div class="d-flex">
             {{ $projects->links() }}
         </div>
 
