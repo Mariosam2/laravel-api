@@ -5,14 +5,15 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class TypeUpdateRequest extends FormRequest
+class TechnologyUpdateRequest extends FormRequest
 {
     protected $errorBag;
-    //generating custom(dynamic) error bag 
+
     public function prepareForValidation()
     {
-        $this->errorBag = "update-" . $this->type->id;
+        $this->errorBag = "update-" . $this->technology->id;
     }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -31,7 +32,7 @@ class TypeUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', Rule::unique('types')->ignore($this->type->id), 'max:50', 'alpha'],
+            'name' => ['required', Rule::unique('technologies')->ignore($this->technology->id), 'max:50', 'alpha'],
         ];
     }
 }

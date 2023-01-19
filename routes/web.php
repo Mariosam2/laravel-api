@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Projects\ProjectController;
+use App\Http\Controllers\Admin\Technologies\TechnologyController;
 use App\Http\Controllers\Admin\Types\TypeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,9 @@ Route::middleware('auth', 'verified')->name('admin.')->prefix('admin')->group(fu
     ]);
     Route::resource('/types', TypeController::class)->parameters([
         'types' => 'type:slug',
+    ]);
+    Route::resource('/technologies', TechnologyController::class)->parameters([
+        'technologies' => 'technology:slug',
     ]);
 });
 

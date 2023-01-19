@@ -83,6 +83,13 @@
                                 Types
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link ms_nav-link {{ str_contains(Route::currentRouteName(), 'admin.technologies') ? 'ms_active' : '' }}"
+                                href="{{ route('admin.technologies.index') }}">
+                                <i class="fa-solid fa-laptop-code"></i>
+                                Technologies
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
