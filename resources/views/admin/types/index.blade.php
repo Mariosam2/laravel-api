@@ -74,7 +74,7 @@
                                                 <div class="input-group">
                                                     <input type="text" name="name" id="{{ 'name-' . $type->id }}"
                                                         value="{{ $type->name }}"
-                                                        class="form-control @error('name', $type->slug) is-invalid @enderror">
+                                                        class="form-control @error('name', "update-$type->id") is-invalid @enderror">
                                                     <button type="submit"
                                                         class="input-group-text btn btn-secondary rounded-end"id="inputGroup-sizing-default">Edit
                                                         <i class="fa-regular fa-pen-to-square ms-2"></i>
@@ -83,10 +83,10 @@
                                             </div>
 
                                         </form>
-                                        @if ($errors->getBag($type->slug)->any())
+                                        @if ($errors->getBag("update-$type->id")->any())
                                             <div class="alert alert-danger m-0 p-2">
                                                 <ul class="m-0">
-                                                    @foreach ($errors->getBag($type->slug)->all() as $error)
+                                                    @foreach ($errors->getBag("update-$type->id")->all() as $error)
                                                         <li>{{ $error }}</li>
                                                     @endforeach
                                                 </ul>

@@ -11,7 +11,7 @@ class TypeUpdateRequest extends FormRequest
     //override del metodo nella classe form request per generare dinamicamente gli error bag dei form (penso sia così sono andato a tentativi)
     public function prepareForValidation()
     {
-        $this->errorBag = $this->route('type')->slug;
+        $this->errorBag = "update-" . $this->type->id;
         //dd($this->route('type')->id);
     }
     /**
@@ -32,7 +32,7 @@ class TypeUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', Rule::unique('types')->ignore($this->type->id), 'max:100'],
+            'name' => ['required', Rule::unique('types')->ignore($this->type->id), 'max:100', 'alpha'],
         ];
     }
 }
