@@ -14,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->name('api.')->group(function () {
-    Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
-});
+
+Route::get('/projects', [ProjectController::class, 'index'])->name('api.projects');
