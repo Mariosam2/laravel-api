@@ -22,9 +22,17 @@ class ProjectController extends Controller
     public function show($slug)
     {
         $project = Project::where('slug', $slug)->with('type', 'technologies')->get();
-        return response()->json([
-            'success' => true,
-            'result' => $project
-        ]);
+        // $project is a collection of a single project, 
+        if (count($project) > 0) {
+            return response()->json([
+                'success' => true,
+                'result' => $project
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'result' => null
+            ]);
+        }
     }
 }
