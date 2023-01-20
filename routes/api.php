@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/projects', [ProjectController::class, 'index'])->name('api.projects');
+Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('api.project');
