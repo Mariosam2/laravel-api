@@ -31,7 +31,7 @@ class TypeUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', Rule::unique('types')->ignore($this->type->id), 'max:50', 'alpha'],
+            'name' => ['required', Rule::unique('types')->ignore($this->type->id), 'max:50'],
         ];
     }
 }

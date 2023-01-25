@@ -32,7 +32,7 @@ class TechnologyUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', Rule::unique('technologies')->ignore($this->technology->id), 'max:50', 'alpha'],
+            'name' => ['required', Rule::unique('technologies')->ignore($this->technology->id), 'max:50'],
         ];
     }
 }
