@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\ProjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/projects', [ProjectController::class, 'index'])->name('api.projects');
 Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('api.project');
+Route::post('/contacts', [ContactController::class, 'store'])->name('api.contacts');
