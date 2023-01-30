@@ -7,6 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 
 class ProjectSeeder extends Seeder
@@ -26,7 +27,14 @@ class ProjectSeeder extends Seeder
             $project->slug = Str::slug($project->title);
             $project->description = $faker->text();
             $project->creation_date = $faker->date();
-            $project->media = json_encode(['images/' . 'placeholder.webp']);
+            $project->media = json_encode([
+                [
+                    'src' => 'images/' . 'placeholder.webp',
+                    'type' => 'image'
+                ]
+
+
+            ]);
             $project->type_id = 1;
 
 

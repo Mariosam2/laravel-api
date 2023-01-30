@@ -41,11 +41,19 @@
                         <tr class="table-light">
                             <td scope="row" class="pe-3 fw-bold">{{ $project->id }}</td>
                             <td>{{ $project->title }}</td>
-                            <td>
+                            <td class="d-flex table-media align-items-center ">
                                 @if (isset($project->media))
-                                    @forelse(json_decode($project->media) as $image)
-                                        <img style="width:240px; height:auto" src="{{ asset('storage/' . $image) }}"
-                                            alt="{{ $project->title }}">
+                                    @forelse(json_decode($project->media) as $file)
+                                        @if ($file->type == 'video')
+                                            <video style="width:320px; height:240px; object-fit: cover; margin: 0.5rem"
+                                                controls>
+                                                <source src='{{ asset('/storage/' . $file->src) }}'
+                                                    type="{{ Storage::mimeType($file->src) }}">
+                                            </video>
+                                        @else
+                                            <img style="width:320px; height:240px; object-fit: cover; margin: 0.5rem"
+                                                src="{{ asset('storage/' . $file->src) }}" alt="{{ $project->title }}">
+                                        @endif
                                     @empty
                                         No images...
                                     @endforelse
