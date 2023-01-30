@@ -26,7 +26,7 @@ class ProjectSeeder extends Seeder
             $project->slug = Str::slug($project->title);
             $project->description = $faker->text();
             $project->creation_date = $faker->date();
-            $project->img = 'images/' . 'placeholder.webp';
+            $project->media = json_encode(['images/' . 'placeholder.webp']);
             $project->type_id = 1;
 
 

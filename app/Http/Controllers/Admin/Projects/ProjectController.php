@@ -10,6 +10,7 @@ use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
 use Termwind\Components\Span;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -47,11 +48,16 @@ class ProjectController extends Controller
         //dd($request);
         $val_data = $request->validated();
         //dd($val_data);
-        if ($request->hasFile('img')) {
-            $img_path = Storage::put('images', $val_data['img']);
-            $val_data['img'] = $img_path;
+        if (isset($val_data['media'])) {
+            foreach ($val_data['media'] as $key => $image) {
+                $img_path = Storage::put('media-' . Str::slug($val_data['title']), $image);
+                $val_data['media'][$key] = $img_path;
+            }
         }
 
+        $val_data['media'] = json_encode($val_data['media']);
+
+        //dd($val_data);
 
         $project = Project::make($val_data)->getProjectWithSlug($val_data['title']);
         //dd($project);
@@ -127,8 +133,8 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //dd($project);
-        if ($project->img) {
-            Storage::delete($project->img);
+        if ($project->media) {
+            Storage::deleteDirectory('media-' . $project->slug);
         }
 
         $project->delete();

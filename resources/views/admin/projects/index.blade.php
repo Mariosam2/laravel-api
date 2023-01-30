@@ -41,8 +41,16 @@
                         <tr class="table-light">
                             <td scope="row" class="pe-3 fw-bold">{{ $project->id }}</td>
                             <td>{{ $project->title }}</td>
-                            <td><img style="width:240px; height:auto" src="{{ asset('storage/' . $project->img) }}"
-                                    alt="{{ $project->title }}"></td>
+                            <td>
+                                @if (isset($project->media))
+                                    @forelse(json_decode($project->media) as $image)
+                                        <img style="width:240px; height:auto" src="{{ asset('storage/' . $image) }}"
+                                            alt="{{ $project->title }}">
+                                    @empty
+                                        No images...
+                                    @endforelse
+                                @endif
+                            </td>
                             <td class="pe-3">{{ date('d/m/Y', strtotime($project->creation_date)) }}</td>
                             <td>
                                 <a class="d-flex text-white  p-3 py-2 m-2 bg-primary justify-content-center rounded-2"

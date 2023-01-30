@@ -26,10 +26,10 @@
         </div>
         <div class="d-flex">
             <div class="mb-3">
-                <label for="img" class="form-label">Choose file</label>
-                <input type="file" class="form-control @error('img')  is-invalid @enderror" name="img" id="img"
-                    placeholder="" aria-describedby="fileHelpId" value="{{ old('img') }}">
-                <div id="fileHelpId" class="form-text">*max size 300KB</div>
+                <label for="img" class="form-label">Choose files</label>
+                <input type="file" class="form-control @error('media')  is-invalid @enderror" name="media[]"
+                    id="media" placeholder="" aria-describedby="fileHelpId" multiple>
+                <div id="fileHelpId" class="form-text">*You can choose multiple images using CTRL</div>
             </div>
             <div class="mb-3 ms-4">
                 <label for="type_id" class="form-label">Types</label>
