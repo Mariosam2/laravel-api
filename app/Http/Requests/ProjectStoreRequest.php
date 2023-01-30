@@ -25,7 +25,7 @@ class ProjectStoreRequest extends FormRequest
     {
         return [
             'title' => ['required', 'unique:projects', 'max:50'],
-            'img' => ['nullable', 'image', 'max:300'],
+            'media.*' => ['nullable', 'mimes:jpg,png,jpeg,gif,mp4,m4v,avi,mov,ogv,qt', 'max:20000'],
             'description' => ['nullable', 'max:255'],
             'creation_date' => ['nullable', 'date'],
             'type_id' => ['nullable', 'exists:types,id'],

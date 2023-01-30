@@ -63,6 +63,11 @@ a {
     -webkit-overflow-scrolling: touch;
 }
 
+.table-media {
+    max-width: 912px;
+    overflow-x: auto;
+}
+
 // Types views rules
 
 .ms_type {

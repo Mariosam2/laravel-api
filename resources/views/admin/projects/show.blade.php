@@ -7,7 +7,21 @@
     <div class="container-fluid">
         <div class="row">
             <div class="card col-12 col-md-8 col-xxl-5 p-0 ms-3">
-                <img class="card-img-top" src="{{ asset('storage/' . $project->img) }}" alt="{{ $project->title }}">
+                <div class="media d-flex overflow-auto">
+                    @forelse(json_decode($project->media) as $file)
+                        @if ($file->type == 'video')
+                            <video style="width: 480px; aspect-ratio: 4/3; object-fit:cover;" controls>
+                                <source src='{{ asset('/storage/' . $file->src) }}'
+                                    type="{{ Storage::mimeType($file->src) }}">
+                            </video>
+                        @else
+                            <img style="width: 480px; aspect-ratio: 4/3; object-fit:cover;"
+                                src="{{ asset('storage/' . $file->src) }}" alt="{{ $project->title }}">
+                        @endif
+                    @empty
+                        No media to show..
+                    @endforelse
+                </div>
                 <div class="card-body">
                     <p class="card-text"><span class="fw-bold">Type:
                         </span>{{ $project->type ? $project->type->name : 'None' }}</p>

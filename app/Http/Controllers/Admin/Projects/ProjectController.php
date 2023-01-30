@@ -10,6 +10,7 @@ use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
 use Termwind\Components\Span;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -47,11 +48,21 @@ class ProjectController extends Controller
         //dd($request);
         $val_data = $request->validated();
         //dd($val_data);
-        if ($request->hasFile('img')) {
-            $img_path = Storage::put('images', $val_data['img']);
-            $val_data['img'] = $img_path;
+        if (isset($val_data['media'])) {
+            foreach ($val_data['media'] as $key => $file) {
+                $file_path = Storage::put('media-' . Str::slug($val_data['title']), $file);
+                $val_data['media'][$key]->src = $file_path;
+                if (Storage::mimeType($file_path) == 'image/jpg' || Storage::mimeType($file_path) == 'image/png' || Storage::mimeType($file_path) == 'image/jpeg' || Storage::mimeType($file_path) == 'image/gif') {
+                    $val_data['media'][$key]->type = 'image';
+                } else {
+                    $val_data['media'][$key]->type = 'video';
+                }
+            }
         }
 
+        $val_data['media'] = json_encode($val_data['media']);
+
+        //dd($val_data);
 
         $project = Project::make($val_data)->getProjectWithSlug($val_data['title']);
         //dd($project);
@@ -103,13 +114,26 @@ class ProjectController extends Controller
     {
         $val_data = $request->validated();
         /* dd($val_data); */
-        if ($request->hasFile('img')) {
-            if ($project->img) {
-                Storage::delete($project->img);
+        //dd($val_data);
+        if (isset($val_data['media'])) {
+            //dd(json_decode($project->media));
+            foreach (json_decode($project->media) as $file) {
+                //dd($file);
+                Storage::delete($file->src);
             }
-            $img_path = Storage::put('images', $val_data['img']);
-            $val_data['img'] = $img_path;
+            foreach ($val_data['media'] as $key => $file) {
+                $file_path = Storage::put('media-' . Str::slug($val_data['title']), $file);
+                $val_data['media'][$key]->src = $file_path;
+                if (Storage::mimeType($file_path) == 'image/jpg' || Storage::mimeType($file_path) == 'image/png' || Storage::mimeType($file_path) == 'image/jpeg' || Storage::mimeType($file_path) == 'image/gif') {
+                    $val_data['media'][$key]->type = 'image';
+                } else {
+                    $val_data['media'][$key]->type = 'video';
+                }
+            }
+            $val_data['media'] = json_encode($val_data['media']);
         }
+
+
         //dd($val_data);
         $project->getProjectWithSlug($val_data['title'])->update($val_data);
         if ($request->has('technologies')) {
@@ -127,8 +151,8 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //dd($project);
-        if ($project->img) {
-            Storage::delete($project->img);
+        if ($project->media) {
+            Storage::deleteDirectory('media-' . $project->slug);
         }
 
         $project->delete();

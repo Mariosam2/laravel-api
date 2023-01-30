@@ -26,12 +26,19 @@
                 chars</small>
         </div>
         <div class="upload-img d-flex my-3 gap-5">
-            <img style="width:240px; height: auto;" src="{{ asset('storage/' . $project->img) }}"
-                alt="{{ $project->title }}">
+            @if (json_decode($project->media)[0]->type == 'image')
+                <img style="width:240px; height: 180; object-fit: cover;"
+                    src="{{ asset('storage/' . json_decode($project->media)[0]->src) }}" alt="{{ $project->title }}">
+            @else
+                <video width="240" height="180" controls>
+                    <source src='{{ asset('/storage/' . json_decode($project->media)[0]->src) }}'
+                        type="{{ Storage::mimeType(json_decode($project->media)[0]->src) }}">
+                </video>
+            @endif
             <div class="mb-3">
-                <label for="img" class="form-label">Choose file</label>
-                <input type="file" class="form-control @error('img')  is-invalid @enderror" name="img" id="img"
-                    placeholder="" aria-describedby="fileHelpId" value="{{ old('img', $project->img) }}">
+                <label for="media" class="form-label">Choose file</label>
+                <input type="file" class="form-control @error('media')  is-invalid @enderror" name="media[]"
+                    id="media" placeholder="" aria-describedby="fileHelpId" multiple>
                 <div id="fileHelpId" class="form-text">*max size 300KB</div>
             </div>
             <div class="mb-3">
@@ -43,6 +50,9 @@
                             <option value="{{ $type->id }}"
                                 {{ old('type_id', $project->type->id) == $type->id ? 'selected' : '' }}>{{ $type->name }}
                             </option>
+                        @else
+                            <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>
+                                {{ $type->name }}</option>
                         @endif
                     @endforeach
                 </select>
