@@ -10,7 +10,7 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::orderByDesc('id')->with('type', 'technologies')->paginate(3);
+        $projects = Project::orderByDesc('id')->with('type', 'technologies')->paginate(9);
         if (count($projects) > 0) {
             return response()->json([
                 'success' => true,
