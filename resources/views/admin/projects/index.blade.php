@@ -52,7 +52,7 @@
                                             </video>
                                         @else
                                             <img style="width:320px; height:240px; object-fit: cover; margin: 0.5rem"
-                                                src="{{ asset('storage/' . $file->src) }}" alt="{{ $project->title }}">
+                                                src="{{ asset('storage/' . $file->src) }}" alt="{{ $file->src }}">
                                         @endif
                                     @empty
                                         No images...

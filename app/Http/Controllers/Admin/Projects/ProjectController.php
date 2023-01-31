@@ -11,6 +11,7 @@ use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
 use Termwind\Components\Span;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class ProjectController extends Controller
 {
@@ -52,7 +53,7 @@ class ProjectController extends Controller
             foreach ($val_data['media'] as $key => $file) {
                 $file_path = Storage::put('media-' . Str::slug($val_data['title']), $file);
                 $val_data['media'][$key]->src = $file_path;
-                if (Storage::mimeType($file_path) == 'image/jpg' || Storage::mimeType($file_path) == 'image/png' || Storage::mimeType($file_path) == 'image/jpeg' || Storage::mimeType($file_path) == 'image/gif') {
+                if (Storage::mimeType($file_path) == 'image/jpg' || Storage::mimeType($file_path) == 'image/png' || Storage::mimeType($file_path) == 'image/jpeg' || Storage::mimeType($file_path) == 'image/webp' || Storage::mimeType($file_path) == 'image/gif') {
                     $val_data['media'][$key]->type = 'image';
                 } else {
                     $val_data['media'][$key]->type = 'video';
@@ -113,8 +114,7 @@ class ProjectController extends Controller
     public function update(ProjectUpdateRequest $request, Project $project)
     {
         $val_data = $request->validated();
-        /* dd($val_data); */
-        //dd($val_data);
+        //dd($request);
         if (isset($val_data['media'])) {
             //dd(json_decode($project->media));
             foreach (json_decode($project->media) as $file) {
@@ -124,14 +124,25 @@ class ProjectController extends Controller
             foreach ($val_data['media'] as $key => $file) {
                 $file_path = Storage::put('media-' . Str::slug($val_data['title']), $file);
                 $val_data['media'][$key]->src = $file_path;
-                if (Storage::mimeType($file_path) == 'image/jpg' || Storage::mimeType($file_path) == 'image/png' || Storage::mimeType($file_path) == 'image/jpeg' || Storage::mimeType($file_path) == 'image/gif') {
+                if (Storage::mimeType($file_path) == 'image/jpg' || Storage::mimeType($file_path) == 'image/png' || Storage::mimeType($file_path) == 'image/jpeg' || Storage::mimeType($file_path) == 'image/webp' || Storage::mimeType($file_path) == 'image/gif') {
                     $val_data['media'][$key]->type = 'image';
                 } else {
                     $val_data['media'][$key]->type = 'video';
                 }
             }
             $val_data['media'] = json_encode($val_data['media']);
+        } else {
+
+            //dd(File::name(json_decode($project->media)[0]->src));
+
+            $val_data['media'] = json_decode($project->media);
+            foreach ($val_data['media'] as $key => $file) {
+
+                $val_data['media'][$key]->src = 'media-' . Str::slug($val_data['title']) . '/' . File::basename($file->src);
+            }
+            Storage::move('media-' . $project->slug, 'media-' . Str::slug($val_data['title']), false);
         }
+
 
 
         //dd($val_data);

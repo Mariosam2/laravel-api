@@ -36,7 +36,7 @@
                 </video>
             @endif
             <div class="mb-3">
-                <label for="media" class="form-label">Choose file</label>
+                <label for="media" class="form-label">Choose files</label>
                 <input type="file" class="form-control @error('media')  is-invalid @enderror" name="media[]"
                     id="media" placeholder="" aria-describedby="fileHelpId" multiple>
                 <div id="fileHelpId" class="form-text">*max size 300KB</div>

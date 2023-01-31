@@ -29,7 +29,7 @@
                 <label for="media" class="form-label">Choose files</label>
                 <input type="file" class="form-control @error('media')  is-invalid @enderror" name="media[]"
                     id="media" placeholder="" aria-describedby="fileHelpId" multiple>
-                <div id="fileHelpId" class="form-text">*You can choose multiple images using CTRL (max size 20MB)</div>
+                <div id="fileHelpId" class="form-text">*You can choose multiple images using CTRL (max size 10MB)</div>
             </div>
             <div class="mb-3 ms-4">
                 <label for="type_id" class="form-label">Types</label>

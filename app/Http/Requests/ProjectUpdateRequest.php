@@ -27,7 +27,7 @@ class ProjectUpdateRequest extends FormRequest
         //dd($this);
         return [
             'title' => ['required', Rule::unique('projects')->ignore($this->project->id), 'max:50'],
-            'media.*' => ['nullable', 'mimes:jpg,png,jpeg,gif,mp4,m4v,avi,mov,ogv,qt', 'max:20000'],
+            'media.*' => ['nullable', 'mimes:jpg,png,jpeg,webp,gif,mp4,m4v,avi,mov,ogv,qt', 'max:10000'],
             'description' => ['nullable', 'max:255'],
             'creation_date' => ['nullable', 'date'],
             'type_id' => ['nullable', 'exists:types,id'],
