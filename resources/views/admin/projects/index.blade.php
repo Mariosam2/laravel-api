@@ -41,8 +41,8 @@
                         <tr class="table-light">
                             <td scope="row" class="pe-3 fw-bold">{{ $project->id }}</td>
                             <td>{{ $project->title }}</td>
-                            <td class="d-flex table-media align-items-center ">
-                                @if (isset($project->media))
+                            @if (isset($project->media))
+                                <td class="d-flex flex-wrap">
                                     @forelse(json_decode($project->media) as $file)
                                         @if ($file->type == 'video')
                                             <video style="width:320px; height:240px; object-fit: cover; margin: 0.5rem"
@@ -57,8 +57,11 @@
                                     @empty
                                         No images...
                                     @endforelse
-                                @endif
-                            </td>
+
+                                </td>
+                            @else
+                                <td>No media for this project...</td>
+                            @endif
                             <td class="pe-3">{{ date('d/m/Y', strtotime($project->creation_date)) }}</td>
                             <td>
                                 <a class="d-flex text-white  p-3 py-2 m-2 bg-primary justify-content-center rounded-2"

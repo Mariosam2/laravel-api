@@ -26,14 +26,16 @@
                 chars</small>
         </div>
         <div class="upload-img d-flex my-3 gap-5">
-            @if (json_decode($project->media)[0]->type == 'image')
-                <img style="width:240px; height: 180; object-fit: cover;"
-                    src="{{ asset('storage/' . json_decode($project->media)[0]->src) }}" alt="{{ $project->title }}">
-            @else
-                <video width="240" height="180" controls>
-                    <source src='{{ asset('/storage/' . json_decode($project->media)[0]->src) }}'
-                        type="{{ Storage::mimeType(json_decode($project->media)[0]->src) }}">
-                </video>
+            @if ($project->media)
+                @if (json_decode($project->media)[0]->type == 'image')
+                    <img style="width:240px; height: 180; object-fit: cover;"
+                        src="{{ asset('storage/' . json_decode($project->media)[0]->src) }}" alt="{{ $project->title }}">
+                @else
+                    <video width="240" height="180" controls>
+                        <source src='{{ asset('/storage/' . json_decode($project->media)[0]->src) }}'
+                            type="{{ Storage::mimeType(json_decode($project->media)[0]->src) }}">
+                    </video>
+                @endif
             @endif
             <div class="mb-3">
                 <label for="media" class="form-label">Choose files</label>

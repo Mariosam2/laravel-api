@@ -59,9 +59,10 @@ class ProjectController extends Controller
                     $val_data['media'][$key]->type = 'video';
                 }
             }
+            $val_data['media'] = json_encode($val_data['media']);
         }
 
-        $val_data['media'] = json_encode($val_data['media']);
+
 
         //dd($val_data);
 
@@ -131,7 +132,7 @@ class ProjectController extends Controller
                 }
             }
             $val_data['media'] = json_encode($val_data['media']);
-        } else {
+        } else if (isset($project->media)) {
 
             //dd(File::name(json_decode($project->media)[0]->src));
 
