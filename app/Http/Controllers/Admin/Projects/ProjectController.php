@@ -142,6 +142,7 @@ class ProjectController extends Controller
                 $val_data['media'][$key]->src = 'media-' . Str::slug($val_data['title']) . '/' . File::basename($file->src);
             }
             Storage::move('media-' . $project->slug, 'media-' . Str::slug($val_data['title']), false);
+            $val_data['media'] = json_encode($val_data['media']);
         }
 
 
