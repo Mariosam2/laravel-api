@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title', 50)->unique();
             $table->string('slug')->unique();
             $table->json('media')->nullable();
+            $table->string('github_link')->nullable();
             $table->text('description')->nullable();
             $table->date('creation_date')->nullable();
             $table->timestamps();

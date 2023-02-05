@@ -25,6 +25,7 @@ class ProjectStoreRequest extends FormRequest
     {
         return [
             'title' => ['required', 'unique:projects', 'max:50'],
+            'github_link' => ['nullable', 'max:255'],
             'media.*' => ['nullable', 'mimes:jpg,png,jpeg,webp,gif,mp4,m4v,avi,mov,ogv,qt', 'max:10000'],
             'description' => ['nullable', 'max:255'],
             'creation_date' => ['nullable', 'date'],

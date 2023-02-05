@@ -25,6 +25,13 @@
             <small id="helpId" class="text-muted">*title is mandatory, must be unique and the max length is 50
                 chars</small>
         </div>
+        <div class="mb-3">
+            <label for="github_link" class="form-label">Github link</label>
+            <input type="text" name="github_link" id="github_link"
+                class="form-control @error('github_link')  is-invalid @enderror" placeholder="" aria-describedby="helpId"
+                value="{{ old('github_link', $project->github_link) }}">
+            <small id=" helpId" class="text-muted">*github link of the project, max 255 chars</small>
+        </div>
         <div class="upload-img d-flex my-3 gap-5">
             @if ($project->media)
                 @if (json_decode($project->media)[0]->type == 'image')

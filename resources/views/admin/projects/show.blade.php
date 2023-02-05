@@ -24,7 +24,11 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text"><span class="fw-bold">Type:
-                        </span>{{ $project->type ? $project->type->name : 'None' }}</p>
+                        </span>{{ $project->type ? $project->type->name : 'None' }}
+                    </p>
+                    <p class="card-text"><span class="fw-bold">Link:
+                        </span>{{ $project->github_link ? $project->github_link : 'None' }}
+                    </p>
                     <p class="card-text">
                         <span class="fw-bold">Technologies:</span>
                         @forelse ($project->technologies as $technology)
